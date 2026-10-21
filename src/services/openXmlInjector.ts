@@ -40,7 +40,6 @@ const buildTimingXml = (xml: string): string => {
       const delay = index * 250
       const fadeId = currentId
       const fadeCTnId = currentId + 1
-      const floatId = currentId + 2
       const floatCTnId = currentId + 3
       currentId += 4
 

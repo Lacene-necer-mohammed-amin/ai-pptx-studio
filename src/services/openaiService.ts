@@ -69,7 +69,7 @@ Content:\n${content.slice(0, 24000)}`
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `******
+      Authorization: 'Bearer ' + config.apiKey,
     },
     body: JSON.stringify({
       model: 'gpt-4o-mini',
@@ -96,7 +96,12 @@ Content:\n${content.slice(0, 24000)}`
     throw new Error('OpenAI returned an empty response.')
   }
 
-  const parsed = JSON.parse(rawContent) as {
+  const cleanedContent = rawContent
+    .replace(/^```json\s*/i, '')
+    .replace(/```$/, '')
+    .trim()
+
+  const parsed = JSON.parse(cleanedContent) as {
     slides: Array<{ title: string; bullets: string[]; notes: string; visualCue: string }>
   }
 
